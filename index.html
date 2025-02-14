@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Flip Editor</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>Cropper</h1>
+            <div class="tabs">
+                <button id="previewSessionTab">Preview Session</button>
+                <button id="generateSessionTab">Generate Session</button>
+            </div>
+        </div>
+
+        <!-- Main Content Section -->
+        <div class="content row">
+            <!-- Video Player Section -->
+            <div class="col-6">
+                <div class="video-section col-12 p-0">
+                    <video id="videoPlayer" src="video.mp4" style="object-fit: cover; object-position: center;"></video>
+                   
+                        <div id="cropper"></div>
+                </div>
+                <div class="col-12">
+                    <div class="row d-flex">
+                        <div class="col-1 p-0">
+                            <div type="button p-0" class="btn" id="video-play-pause"><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                                    class="bi bi-play-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
+                                </svg></div>
+                        </div>
+                        <div class="col-11 custom-progress">
+                            <div class="custom-progress-bar" style="width: 0%;"></div>
+                            <div class="progress-handle" aria-valuenow="0"></div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="controls">
+                        <label for="playbackSpeed">Playback speed:</label>
+                        <select id="playbackSpeed">
+                            <option value="0.5">0.5x</option>
+                            <option value="1" selected>1x</option>
+                            <option value="1.5">1.5x</option>
+                            <option value="2">2x</option>
+                        </select>
+
+                        <label for="aspectRatio">Cropper Aspect Ratio:</label>
+                        <select id="aspectRatio" value="9:16">
+                            <option value="9:16">9:16</option>
+                            <option value="9:18">9:18</option>
+                            <option value="4:3">4:3</option>
+                            <option value="3:4">3:4</option>
+                            <option value="1:1">1:1</option>
+                            <option value="4:5">4:5</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <!-- Preview Section -->
+                <div class="preview-section">
+                    <h2>Preview</h2>
+                    <div id="previewPlaceholder">
+                        <p>Preview not available</p>
+                        <p>Please click on "Start Cropper" and then play video</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="footer">
+            <button id="startCropper">Start Cropper</button>
+            <button id="removeCropper">Remove Cropper</button>
+            <button id="generatePreview">Generate Preview</button>
+            <button id="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <!-- JavaScript File -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script async src="script.js"></script>
+</body>
+
+</html>

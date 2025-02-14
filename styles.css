@@ -1,0 +1,108 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Section */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.tabs button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.tabs button:hover {
+    background-color: #555;
+}
+
+/* Main Content Section */
+.content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.video-section {
+    flex: 2;
+    margin-right: 20px;
+    position: relative;
+}
+
+#videoPlayer {
+    width: 100%;
+    height: auto;
+}
+
+
+
+#cropper {
+    position: absolute;
+    border: 2px dashed #fff;
+    top: 50px;
+    left: 50px;
+}
+
+.controls {
+    margin-top: 10px;
+}
+
+.preview-section {
+    flex: 1;
+    background-color: #333;
+    padding: 20px;
+}
+
+#previewPlaceholder {
+    border: 2px dashed #555;
+}
+
+/* Footer Section */
+.footer button {
+    background-color: #6a0dad;
+}
+.footer button:hover {
+   background-color:#7b1fa2
+}
+
+
+.custom-progress {
+    position: relative;
+    height: 8px;
+    background-color: #6c757d; /* Gray background */
+    border-radius: 50px;
+  }
+
+  .custom-progress-bar {
+    height: 8px;
+    background-color: #ffffff; /* White bar */
+    border-radius: 50px;
+  }
+
+  .progress-handle {
+    position: absolute;
+    top: -6px;
+    left: 0%;
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff; /* White handle */
+    border-radius: 50%;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  }
