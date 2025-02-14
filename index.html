@@ -11,27 +11,36 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container p-0">
         <!-- Header Section -->
-        <div class="header">
-            <h1>Cropper</h1>
-            <div class="tabs">
-                <button id="previewSessionTab">Preview Session</button>
-                <button id="generateSessionTab">Generate Session</button>
+        <div class="header row pb-0 pl-4 pr-4 pt-4 mb-0">
+            <div class="col-2 font-weight-bold">Cropper</div>
+            <div class="col-10 d-flex justify-content-center">
+                <div class="tabs p-1">
+                    <button id="previewSessionTab">Preview Session</button>
+                    <button id="generateSessionTab">Generate Session</button>
+                </div>
             </div>
         </div>
 
         <!-- Main Content Section -->
-        <div class="content row">
+        <div class="content row main-cotainer p-4 mb-4">
             <!-- Video Player Section -->
             <div class="col-6">
                 <div class="video-section col-12 p-0">
-                    <video id="videoPlayer" src="video.mp4" style="object-fit: cover; object-position: center;"></video>
-                   
-                        <div id="cropper"></div>
+                    <video id="videoPlayer" src="video_2.mp4"
+                        style="object-fit: cover; object-position: center;"></video>
+
+                    <div id="cropper">
+                        <div class="horizontal-line line-1"></div>
+                        <div class="horizontal-line line-2"></div>
+                        <div class="resize-handle resize-left"></div>
+                        <div class="resize-handle resize-right"></div>
+                    </div>
                 </div>
                 <div class="col-12">
-                    <div class="row d-flex">
+                    <!-- play/pause and prgress bar -->
+                    <div class="row d-flex align-items-center">
                         <div class="col-1 p-0">
                             <div type="button p-0" class="btn" id="video-play-pause"><svg
                                     xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
@@ -40,54 +49,97 @@
                                         d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393" />
                                 </svg></div>
                         </div>
-                        <div class="col-11 custom-progress">
+                        <div class="col-11 custom-progress p-0">
                             <div class="custom-progress-bar" style="width: 0%;"></div>
                             <div class="progress-handle" aria-valuenow="0"></div>
 
                         </div>
 
                     </div>
+                    <!-- duartion and volume -->
+                    <div class="row d-flex align-items-center">
+                        <div class="col-6 show-duration">
+                            <span class="current-duration"> </span> |
+                            <span class="end-duration"> </span>
+
+                        </div>
+                        <div class="col-6 volume-control d-flex justify-content-end p-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                class="bi bi-volume-up-fill" viewBox="0 0 16 16">
+                                <path
+                                    d="M11.536 14.01A8.47 8.47 0 0 0 14.026 8a8.47 8.47 0 0 0-2.49-6.01l-.708.707A7.48 7.48 0 0 1 13.025 8c0 2.071-.84 3.946-2.197 5.303z" />
+                                <path
+                                    d="M10.121 12.596A6.48 6.48 0 0 0 12.025 8a6.48 6.48 0 0 0-1.904-4.596l-.707.707A5.48 5.48 0 0 1 11.025 8a5.48 5.48 0 0 1-1.61 3.89z" />
+                                <path
+                                    d="M8.707 11.182A4.5 4.5 0 0 0 10.025 8a4.5 4.5 0 0 0-1.318-3.182L8 5.525A3.5 3.5 0 0 1 9.025 8 3.5 3.5 0 0 1 8 10.475zM6.717 3.55A.5.5 0 0 1 7 4v8a.5.5 0 0 1-.812.39L3.825 10.5H1.5A.5.5 0 0 1 1 10V6a.5.5 0 0 1 .5-.5h2.325l2.363-1.89a.5.5 0 0 1 .529-.06" />
+                            </svg>
+                            <input type="range" class="form-range" id="volumeRange" min="0" max="100" step="1">
+
+                        </div>
+                    </div>
 
                     <!-- Controls -->
-                    <div class="controls">
-                        <label for="playbackSpeed">Playback speed:</label>
-                        <select id="playbackSpeed">
-                            <option value="0.5">0.5x</option>
-                            <option value="1" selected>1x</option>
-                            <option value="1.5">1.5x</option>
-                            <option value="2">2x</option>
-                        </select>
+                    <div class="controls row">
+                        <div class="input-group mb-3 col-4">
 
-                        <label for="aspectRatio">Cropper Aspect Ratio:</label>
-                        <select id="aspectRatio" value="9:16">
-                            <option value="9:16">9:16</option>
-                            <option value="9:18">9:18</option>
-                            <option value="4:3">4:3</option>
-                            <option value="3:4">3:4</option>
-                            <option value="1:1">1:1</option>
-                            <option value="4:5">4:5</option>
-                        </select>
+                            <select class="custom-select" id="playbackSpeed">
+                                <option selected>Playback speed: 1x</option>
+                                <option value="0.5">Playback speed: 0.5x</option>
+                                <option value="1.5">Playback speed: 1.5x</option>
+                                <option value="2">Playback speed: 2x</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group mb-3 col-5">
+                            <select class="custom-select" id="aspectRatio">
+                                <option selected value="9:16">Cropper Aspect Ratio: 9:16</option>
+                                <option value="9:18">Cropper Aspect Ratio: 9:18</option>
+                                <option value="4:3">Cropper Aspect Ratio: 4:3</option>
+                                <option value="3:4">Cropper Aspect Ratio: 3:4</option>
+                                <option value="1:1">Cropper Aspect Ratio: 1:1</option>
+                                <option value="4:5">Cropper Aspect Ratio: 4:5</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-6">
                 <!-- Preview Section -->
                 <div class="preview-section">
-                    <h2>Preview</h2>
-                    <div id="previewPlaceholder">
-                        <p>Preview not available</p>
-                        <p>Please click on "Start Cropper" and then play video</p>
+                    <div class="pview-heding">Preview</div>
+                    <div id="previewPlaceholder" class="d-flex justify-content-center align-items-center vh-100">
+                        <div class="text-center preview-card-wrapper">
+                            <!-- Preview Card -->
+                            <div class="preview-card">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                                    class="bi bi-play-btn" viewBox="0 0 16 16">
+                                    <path
+                                        d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z" />
+                                    <path
+                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z" />
+                                </svg>
+                            </div>
+                            <!-- Message -->
+                            <p class="preview-text">
+                                <span>Preview not available </span><br>
+                                Please click on "Start Cropper" and then play video
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- Footer Section -->
-        <div class="footer">
-            <button id="startCropper">Start Cropper</button>
-            <button id="removeCropper">Remove Cropper</button>
-            <button id="generatePreview">Generate Preview</button>
-            <button id="cancel">Cancel</button>
+        <div class="footer p-4 row m-0">
+            <div class="col-10">
+                <button id="startCropper" class="btn">Start Cropper</button>
+                <button id="removeCropper" class="btn">Remove Cropper</button>
+                <button id="generatePreview" class="btn">Generate Preview</button>
+            </div>
+            <div class="col-2 d-flex justify-content-end">
+                <button id="cancel" class="btn p-2 pr-4 pl-4">Cancel</button>
+            </div>
         </div>
     </div>
 

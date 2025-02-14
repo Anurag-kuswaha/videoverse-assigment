@@ -1,16 +1,22 @@
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #1e1e1e;
+    background-color: black;
     color: #fff;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
+    margin-top: 100px;
     padding: 20px;
+    border-radius: 10px;
+    background-color: #37393F;
 }
 
 /* Header Section */
@@ -21,13 +27,26 @@ body {
     margin-bottom: 20px;
 }
 
+#generateSessionTab {
+    background-color: #37393F;
+    border-radius: 6px;
+}
+
+.tabs {
+    background-color: #45474E;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
 .tabs button {
-    background-color: #333;
-    color: #fff;
+    background: none;
+    color: #FFFFFF;
     border: none;
-    padding: 10px 20px;
+    padding: 10px 10px;
     margin-left: 10px;
     cursor: pointer;
+    line-height: 15.62px;
 }
 
 .tabs button:hover {
@@ -48,16 +67,74 @@ body {
 
 #videoPlayer {
     width: 100%;
-    height: auto;
+    border-radius: 6px;
 }
 
 
 
 #cropper {
     position: absolute;
-    border: 2px dashed #fff;
+    border: 2px solid #fff;
     top: 50px;
     left: 50px;
+}
+
+.resize-handle {
+    position: absolute;
+    top: 0;
+    width: 10px;
+    height: 100%;
+    background: transparent;
+    cursor: ew-resize;
+}
+
+.resize-left {
+    left: -5px;
+}
+
+.resize-right {
+    right: -5px;
+}
+
+/* Vertical Lines */
+#cropper::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 33.33%;
+    width: 1px;
+    background: white;
+    border-left: 1px dashed white;
+}
+
+#cropper::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 33.33%;
+    width: 1px;
+    background: white;
+    border-left: 1px dashed white;
+}
+
+/* Horizontal Lines */
+.horizontal-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: white;
+    border-top: 1px dashed white;
+}
+
+.line-1 {
+    top: 33.33%;
+}
+
+.line-2 {
+    top: 66.66%;
 }
 
 .controls {
@@ -66,43 +143,130 @@ body {
 
 .preview-section {
     flex: 1;
-    background-color: #333;
     padding: 20px;
+    padding-top: 0px !important;
+
 }
 
-#previewPlaceholder {
-    border: 2px dashed #555;
+.pview-heding {
+    color: white;
+    opacity: 0.5;
+    font-size: 12px;
+    text-align: center;
+    padding-bottom: 10px;
 }
 
-/* Footer Section */
+.preview-card-wrapper {
+    margin-top: 20%;
+}
+
+.footer {
+    border-top: 1px solid #494C55;
+}
+
 .footer button {
-    background-color: #6a0dad;
-}
-.footer button:hover {
-   background-color:#7b1fa2
+    background-color: #7C36D6;
+    border-radius: 10px;
+    margin-right: 10px;
+    color: white;
 }
 
+.footer #cancel {
+    background-color: #45474E;
+}
+
+
+.footer button:hover {
+    background-color: #7C36D6
+}
+
+select {
+    font-size: 12px;
+    background: none !important;
+    color: white !important;
+    border: 1px solid #45474E;
+}
 
 .custom-progress {
     position: relative;
-    height: 8px;
-    background-color: #6c757d; /* Gray background */
+    height: 4px;
+    background-color: #6c757d;
+    /* Gray background */
     border-radius: 50px;
-  }
+    cursor: pointer;
+}
 
-  .custom-progress-bar {
-    height: 8px;
-    background-color: #ffffff; /* White bar */
+.custom-progress-bar {
+    height: 4px;
+    background-color: #ffffff;
+    /* White bar */
     border-radius: 50px;
-  }
 
-  .progress-handle {
+}
+
+.progress-handle {
     position: absolute;
     top: -6px;
     left: 0%;
     width: 20px;
     height: 20px;
-    background-color: #ffffff; /* White handle */
+    background-color: #ffffff;
+    /* White handle */
     border-radius: 50%;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  }
+}
+
+.preview-card {
+
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.play-icon {
+    font-size: 2rem;
+    color: #6c757d;
+}
+
+.preview-text {
+    text-align: center;
+    margin-top: 10px;
+    color: #6c757d;
+    font-size: 12px;
+}
+
+.preview-text>span {
+    color: white;
+    font-size: 12px;
+}
+
+.end-duration {
+    opacity: 0.5;
+}
+
+#volumeRange {
+    max-width: 72px;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+    input[type='range'] {
+
+
+        background-color: #6c757d;
+    }
+
+    input[type='range']::-webkit-slider-runnable-track {
+
+        color: #6c757d;
+
+    }
+
+    input[type='range']::-webkit-slider-thumb {
+
+        background: #6c757d;
+
+    }
+
+}
