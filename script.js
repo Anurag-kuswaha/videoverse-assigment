@@ -282,8 +282,8 @@ generatePreviewButton.addEventListener('click', () => {
 // change the video
 document.querySelectorAll('#cancel').forEach((handle) => {
     handle.addEventListener('click', function (e) {
-
-        if (videoPlayer.src == 'video.mp4')
+       let srcVideo = videoPlayer.src.toString().includes('video.mp4')
+        if (srcVideo)
             videoPlayer.src = 'video_2.mp4'
         else videoPlayer.src = 'video.mp4'
     })
