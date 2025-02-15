@@ -1,26 +1,28 @@
-// Video Player and Cropper Elements
+// Video Player
 const videoPlayer = document.getElementById('videoPlayer');
 
+//  video play/pause and progress bar
 const videoPlayPause = document.getElementById('video-play-pause')
 const progress = document.querySelector('.custom-progress');
 const progressBar = document.querySelector('.custom-progress-bar');
 const customProgressBarDotIcon = document.querySelector('.progress-handle');
 
-//  show timer and volumen
+//  show duration and volume
 const showDuration = document.querySelector('.show-duration')
 const volumeRange = document.getElementById('volumeRange');
 
-
+// control playback speed and aspsect ratio
 const playbackSpeed = document.getElementById('playbackSpeed')
 const cropper = document.getElementById('cropper');
 const aspectRatio = document.getElementById('aspectRatio');
 
+// cropper stuffs
 const startCropperButton = document.getElementById('startCropper');
 const removeCropperButton = document.getElementById('removeCropper');
 
-
+// generating preview
 const generatePreviewButton = document.getElementById('generatePreview');
-const previewCanvas = document.createElement('canvas'); // Canvas for real-time preview
+const previewCanvas = document.createElement('canvas'); // Canvas for preview
 const previewContext = previewCanvas.getContext('2d');
 const previewPlaceholder = document.getElementById('previewPlaceholder');
 
@@ -28,6 +30,7 @@ const previewPlaceholder = document.getElementById('previewPlaceholder');
 var isCropperEnabled = false
 var isVideoPlayed = false
 let minWidthConstraint = 50
+
 // video play/pause and loader
 videoPlayPause.addEventListener('click', () => {
     isVideoPlayed = true
@@ -66,19 +69,18 @@ videoPlayer.addEventListener('timeupdate', () => {
 });
 // on page load update the timer
 window.addEventListener('load', function () {
-    showDuration.querySelector('.current-duration').textContent = formatDuration(videoPlayer.currentTime)
-    showDuration.querySelector('.end-duration').textContent = formatDuration(videoPlayer.duration)
 
-    videoPlayer.volume = 0
-    volumeRange.value = videoPlayer.volume * 100;
-
-    removeCropperButton.style.opacity = 0.5
-    generatePreviewButton.style.opacity = 0.5
+    onVideoLoad()
+    console.log('loaded ')
 })
 
+videoPlayer.addEventListener('loadeddata', function () {
+    console.log('loaded ')
+    onVideoLoad()
+});
 // video volume control
 volumeRange.addEventListener('input', (event) => {
-    videoPlayer.volume = event.target.value / 100; // Convert to range [0,1]
+    videoPlayer.volume = event.target.value / 100;
 
 })
 // video controls
@@ -118,10 +120,10 @@ startCropperButton.addEventListener('click', () => {
     const [widthRatio, heightRatio] = aspectRatio.value.split(':').map(Number);
     console.log(widthRatio, heightRatio)
     cropper.style.display = 'block';
-    cropper.style.height = `${videoPlayer.offsetHeight}px`; // Set height to 100% of video
-    cropper.style.width = `${(widthRatio * videoPlayer.offsetWidth) / (2 * heightRatio)}px`; // Default width (50% of video width)
-    cropper.style.left = '0px'; // Align to left initially
-    cropper.style.top = '0px'; // Align to top initially
+    cropper.style.height = `${videoPlayer.offsetHeight}px`; //setting height to 100%
+    cropper.style.width = `${(widthRatio * videoPlayer.offsetWidth) / (2 * heightRatio)}px`;
+    cropper.style.left = '0px';
+    cropper.style.top = '0px';
 
     // Set up canvas dimensions for real-time preview
 
@@ -270,11 +272,45 @@ function updatePreview() {
 }
 updatePreview();
 
-// Generate Preview Button (Save Cropping Data)
+// Generate Preview Button
 generatePreviewButton.addEventListener('click', () => {
     recordCoordinates();
     downloadJSON();
 });
+
+
+// change the video
+document.querySelectorAll('#cancel').forEach((handle) => {
+    handle.addEventListener('click', function (e) {
+
+        if (videoPlayer.src == 'video.mp4')
+            videoPlayer.src = 'video_2.mp4'
+        else videoPlayer.src = 'video.mp4'
+    })
+})
+
+
+// helper functions
+
+function formatDuration(totalSeconds) {
+    console.log('totalSeconds ', totalSeconds)
+    const hours = Math.floor(totalSeconds / 3600) || '00';
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = (totalSeconds % 60).toFixed(0);
+
+    return `${hours}:${minutes}:${seconds}`;
+}
+
+function showPreview() {
+    if (isVideoPlayed && isCropperEnabled) {
+        previewPlaceholder.innerHTML = '';
+        previewPlaceholder.appendChild(previewCanvas);
+
+        previewCanvas.width = cropper.offsetWidth;
+        previewCanvas.height = cropper.offsetHeight;
+    }
+
+}
 
 // Record Coordinates and Playback Data
 function recordCoordinates() {
@@ -290,6 +326,7 @@ function recordCoordinates() {
         playbackRate: videoPlayer.playbackRate,
     });
 }
+
 
 // Download JSON Data
 function downloadJSON() {
@@ -311,26 +348,22 @@ function downloadJSON() {
     downloadAnchorNode.remove();
 }
 
+function onVideoLoad() {
+    showDuration.querySelector('.current-duration').textContent = formatDuration(videoPlayer.currentTime)
+    showDuration.querySelector('.end-duration').textContent = formatDuration(videoPlayer.duration)
 
-// helper functions
+    videoPlayer.volume = 0
+    volumeRange.value = videoPlayer.volume * 100;
 
-function formatDuration(totalSeconds) {
-    console.log('totalSeconds ', totalSeconds)
-    const hours = Math.floor(totalSeconds / 3600) || '00';
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
-    const seconds = (totalSeconds % 60).toFixed(0);
-
-    return `${hours}:${minutes}:${seconds}`;
-}
-
-function showPreview() {
-    if (isVideoPlayed && isCropperEnabled) {
-        // Append the canvas to the preview section
-        previewPlaceholder.innerHTML = ''; // Clear placeholder text
-        previewPlaceholder.appendChild(previewCanvas);
-
-        previewCanvas.width = cropper.offsetWidth;
-        previewCanvas.height = cropper.offsetHeight;
-    }
+    removeCropperButton.style.opacity = 0.5
+    generatePreviewButton.style.opacity = 0.5;
+    let percentage = 0 // on inital video load
+    progressBar.style.width = `${percentage}%`;
+    customProgressBarDotIcon.style.left = `${percentage - 1}%`
+    progressBar.setAttribute('aria-valuenow', percentage);
+    removeCropperButton.click()
+    videoPlayPause.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+</svg>`
 
 }
