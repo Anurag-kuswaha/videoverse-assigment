@@ -7,6 +7,8 @@ Build a **Dynamic Flip Screen** that allows users to crop video content dynamica
 2. CSS
 3. Bootstrap (only for UI)
 4. Plain javascript
+## loom video
+https://www.loom.com/share/5ccb9cf1e1f84bcba14da2e3a6fc1e5e?sid=10c06acd-3447-4569-947b-e287fbbc47c4 
 
 ![alt text](image.png)
 
